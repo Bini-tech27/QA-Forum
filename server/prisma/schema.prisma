@@ -23,7 +23,7 @@ model Question {
   userId      Int
   title       String
   description String
-  tag         String
+  
   user        User     @relation(fields: [userId], references: [userId])
   answers     Answer[]
 }

@@ -1,9 +1,21 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const allAnswers = async (req, res) => {
+const getAnswers = async (req, res) => {
+  const questionId = req.params.questionId;
+
+  if (!req.params.questionId) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Missing questionId parameter." });
+  }
+
   try {
-    const answers = await prisma.answer.findMany();
+    const answers = await prisma.answer.findMany({
+      where: {
+        questionId: questionId.questionId,
+      },
+    });
 
     if (answers.length < 1) {
       return res.status(404).json({ msg: "No answers found" });
@@ -20,9 +32,19 @@ const allAnswers = async (req, res) => {
 
 const postAnswers = async (req, res) => {
   const user = req.user;
-  console.log("object",user)
+  const questionId = req.params.questionId;
+  console.log("sss", questionId);
+
+  if (!req.params.questionId) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Missing questionId parameter." });
+  }
+
+
   try {
-    const { answer } = req.body;
+    const  {answer}  = req.body;
+
     if (!answer) {
       return res.status(400).json({ msg: "Please provide the answer" });
     }
@@ -30,6 +52,7 @@ const postAnswers = async (req, res) => {
       data: {
         answer: answer,
         userId: user.userId,
+        questionId: parseInt(questionId),
       },
     });
 
@@ -38,8 +61,8 @@ const postAnswers = async (req, res) => {
       .json({ msg: "Answers posted successfully", answer: newAnswer });
   } catch (error) {
     console.error(error.message);
-    return res.status(500).json({ msg: "error" });
+    return res.status(500).json({ msg: "something went wrong try again later" });
   }
 };
 
-module.exports = { allAnswers, postAnswers };
+module.exports = { getAnswers, postAnswers };

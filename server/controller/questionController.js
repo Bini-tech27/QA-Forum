@@ -20,7 +20,6 @@ const allQuestions = async (req, res) => {
 
 const postQuestions = async (req, res) => {
   const user = req.user;
-  console.log("user information current :", user);
   try {
     const { title, description } = req.body;
     if (!title || !description) {

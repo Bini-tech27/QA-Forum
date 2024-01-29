@@ -1,0 +1,1 @@
+export const IpAddress = "http://localhost:8080";

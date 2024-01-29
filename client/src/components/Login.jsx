@@ -24,7 +24,7 @@ function Login() {
            console.log(response);
            localStorage.setItem("user", JSON.stringify(user));
 
-           window.location.replace("/");
+           window.location.replace("/home");
          })
 
          .catch((error) => {

@@ -12,7 +12,7 @@ function Nav() {
     window.location.replace("/");
   };
   return (
-    <div className="flex bg-gray-100 h-28 sticky top-0 justify-evenly	">
+    <div className="flex bg-gray-100 h-28 sticky top-0 justify-evenly mb-4	">
       <div className="flex">
         <Link>
           <img src={logo} className="w-44" alt="Logo" />
@@ -41,7 +41,7 @@ function Nav() {
           </Link>
           <Link
             className="bg-blue-700  hover:bg-orange-600 mt-5 mr-3 p-2 h-10 text-white px-4 py-2 rounded-md"
-            to={`/sign-in`}
+            to={`/`}
           >
             Sign in
           </Link>

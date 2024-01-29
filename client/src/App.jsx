@@ -4,6 +4,9 @@ import Nav from './components/Nav';
 import Footer from "./components/Footer";
 import Register from './components/Register';
 import Login from './components/Login';
+import Home from './components/Home';
+import Question from './components/Question';
+import Answer from './components/Answer';
 
 
 function App() {
@@ -12,10 +15,13 @@ function App() {
     <>
       <BrowserRouter>
         <Nav />
+
         <Routes>
-          {/* <Register /> */}
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/sign-in" element={<Login />}></Route>
+          <Route path="/" element={<Login />}></Route>
+          <Route path="/home" element={<Home />}></Route>
+          <Route path="/question" element={<Question />}></Route>
+          <Route path="/answer/:id" element={<Answer />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>
@@ -24,6 +30,11 @@ function App() {
 }
 
 export default App
+
+
+
+
+
 
 
 

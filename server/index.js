@@ -18,7 +18,6 @@ app.use("/", questionRoutes);
 const answerRoutes = require("./routes/answerRoutes");
 app.use("/", answerRoutes);
 
-
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

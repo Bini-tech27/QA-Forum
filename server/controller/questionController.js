@@ -18,6 +18,34 @@ const allQuestions = async (req, res) => {
   }
 };
 
+const singleQuestion = async (req, res) => {
+  const Id = req.params.questionId;
+
+  if (!Id) {
+    return res.status(400).json({ msg: "Single question ID not provided" });
+  }
+
+  try {
+    const single = await prisma.question.findUnique({
+      where: {
+        id: parseInt(Id), 
+      },
+    });
+
+    // Check if no question is found
+    if (!single) {
+      return res
+        .status(400)
+        .json({ msg: "Question not found with the provided ID" });
+    } else {
+      res.json({ single }); 
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ msg: "Something went wrong, please try again" });
+  }
+};
+
 const postQuestions = async (req, res) => {
   const user = req.user;
   try {
@@ -44,4 +72,4 @@ const postQuestions = async (req, res) => {
   }
 };
 
-module.exports = { allQuestions, postQuestions };
+module.exports = { allQuestions, postQuestions, singleQuestion };

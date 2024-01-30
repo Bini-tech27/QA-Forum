@@ -62,7 +62,6 @@ const login = async (req, res) => {
         email: email,
       },
     });
-    console.log(user, "user");
 
     if (!user) {
       return res
@@ -79,7 +78,7 @@ const login = async (req, res) => {
       { userId: user.userId, username: user.username },
       "secret-key",
       {
-        expiresIn: "1d",
+        expiresIn: "15d",
       }
     );
     res.status(200).json({ msg: "Login successful", token });

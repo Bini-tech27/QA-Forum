@@ -30,7 +30,7 @@ model Question {
 model Answer {
   id          Int      @id @default(autoincrement())
   userId      Int
-  questionId  Int
+  questionId  Int      
   answer      String
   user        User     @relation(fields: [userId], references: [userId])
   question    Question @relation(fields: [questionId], references: [id])

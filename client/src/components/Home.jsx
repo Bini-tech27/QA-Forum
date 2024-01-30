@@ -3,25 +3,30 @@ import { Link, useParams } from "react-router-dom";
 import { IpAddress } from "../IpAddress";
 import profile from "../assets/profile.png";
 import axios from "axios";
+import { connect } from "react-redux";
+import { fetchQuestionData } from "../redux/questionAction";
 
-function Home() {
+
+function Home({ questionData, fetchQuestionData, isLoading }) {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
   const [token, setToken] = useState(localStorage.getItem("user"));
 
   useEffect(() => {
-    axios
-      .get(`${IpAddress}/all-questions`, {
-        headers: {
-          Authorization: "Bearer " + JSON.parse(token).token,
-        },
-      })
-      .then((response) => {
-        setQuestion(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+    // axios
+    //   .get(`${IpAddress}/all-questions`, {
+    //     headers: {
+    //       Authorization: "Bearer " + JSON.parse(token).token,
+    //     },
+    //   })
+    //   .then((response) => {
+    //     setQuestion(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching data:", error);
+    //   });
+    fetchQuestionData();
+
   }, []);
 
   return (
@@ -33,7 +38,7 @@ function Home() {
         Ask Question
       </Link>
       <div className="mt-4">
-        {question?.questions?.map((item) => (
+        {questionData?.questions?.map((item) => (
           <Link to={`/answer/${item.id}`}>
             <hr className="mx-32" />
             <div className="mx-32 hover:bg-gray-200  ">
@@ -52,5 +57,17 @@ function Home() {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    questionData: state.questionReducer.data,
+    isLoading: state.questionReducer.loading,
+  };
+};
 
-export default Home;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchQuestionData: () => dispatch(fetchQuestionData()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home); 

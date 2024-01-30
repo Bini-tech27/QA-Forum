@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import { useForm } from 'react-hook-form';
+import { IpAddress } from '../IpAddress';
 
 
 function Login() {
@@ -13,7 +14,7 @@ function Login() {
 
      const onSubmit = (data) => {
        axios
-         .post("http://localhost:8080/user/login", {
+         .post(`${IpAddress}/user/login`, {
            email: data.email,
            password: data.password,
          })

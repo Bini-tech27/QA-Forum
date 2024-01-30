@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { IpAddress } from "../IpAddress";
 
 function Register() {
     const {
@@ -20,7 +21,7 @@ function Register() {
     };
 
     axios
-      .post("http://localhost:8080/user/register", userInfo)
+      .post(`${IpAddress}/user/register`, userInfo)
 
       .then((response) => {
         console.log(response);

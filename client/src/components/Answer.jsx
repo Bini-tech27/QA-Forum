@@ -116,7 +116,7 @@ function Answer() {
           type="submit"
           className="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-orange-600 focus:outline-none focus:shadow-outline-blue mb-2"
         >
-          Post Your Answer{" "}
+          Post Your Answer
         </button>
       </form>
     </div>

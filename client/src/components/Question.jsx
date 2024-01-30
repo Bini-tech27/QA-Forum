@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { IpAddress } from "../IpAddress";
 
 function Question() {
   const token = localStorage.getItem("user");
@@ -13,7 +14,7 @@ function Question() {
   const onSubmit = (data) => {
     axios
       .post(
-        "http://localhost:8080/post-questions",
+        `${IpAddress}/post-questions`,
         {
           title: data.title,
           description: data.description,
@@ -42,7 +43,7 @@ function Question() {
         </h2>
 
         <label className="block mb-4">
-          <span className="text-gray-700">Title:</span>
+          <span className="text-gray-700">Question Title:</span>
           <input
             type="text"
             {...register("title", { required: "title is required" })}

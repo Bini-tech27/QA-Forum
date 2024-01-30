@@ -24,7 +24,7 @@ function Register() {
 
       .then((response) => {
         console.log(response);
-        // window.location.replace("/sign-in");
+        window.location.replace("/");
       })
       .catch((error) => {
         console.error("Error submitting form:", error);

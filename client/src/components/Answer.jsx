@@ -14,12 +14,12 @@ function Answer() {
 
   const { id } = useParams();
   const [question, setQuestion] = useState({});
-    const [answer, setAnswer] = useState({});
+  const [answer, setAnswer] = useState({});
   const [token, setToken] = useState(localStorage.getItem("user"));
 
   useEffect(() => {
     axios
-      .get(`${IpAddress}/all-questions`, {
+      .get(`${IpAddress}/single-question/${id}`, {
         headers: {
           Authorization: "Bearer " + JSON.parse(token).token,
         },
@@ -45,7 +45,7 @@ function Answer() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []); 
+  }, []);
 
   const onSubmit = (data) => {
     axios
@@ -71,22 +71,21 @@ function Answer() {
   return (
     <div>
       <div>
-        {question?.questions?.map((item) => (
-          <div key={item.id}>
-            <h2>{item.title}</h2>
-            <p>{item.description}</p>
-          </div>
-        ))}
+        <div className="mb-6 mx-28">
+          <h1 className="font-bold text-3xl ">Question</h1>
+          <h2 className=" text-2xl">{question?.single?.title}</h2>
+          <p>{question?.single?.description}</p>
+        </div>
       </div>
       {answer?.answers?.map((item) => (
         <div key={item.id}>
           <hr className="mx-32" />
           <div className="flex">
-            <div className="w-24">
+            <div className="w-24 mx-32">
               <img className="w-16" src={profile} alt="" />
               <p>{item?.userId}</p>
             </div>
-            <p className="mx-32 ">{item.answer}</p>
+            <p className="mx-32 p-6">{item.answer}</p>
           </div>
           <hr className="mx-32" />
         </div>
@@ -118,7 +117,6 @@ function Answer() {
           className="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-orange-600 focus:outline-none focus:shadow-outline-blue mb-2"
         >
           Post Your Answer{" "}
-          {/* Changed from "Post Your Question" to "Post Your Answer" */}
         </button>
       </form>
     </div>

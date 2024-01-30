@@ -1,38 +1,36 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
+import axios from "axios";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 function Question() {
-      const [token, setToken] = useState(localStorage.getItem("user"));
-     const {
-       register,
-       handleSubmit,
-       setValue,
-       formState: { errors },
-     } = useForm();
-
-      const onSubmit = (data) => {
-        axios
-          .post(
-            "http://localhost:8080/post-questions",
-            {
-              title: data.title,
-              description: data.description,
-            },
-            {
-              headers: {
-                Authorization: "Bearer " + JSON.parse(token).token,
-              },
-            }
-          )
-          .then((response) => {
-            window.location.replace("/home");
-          })
-          .catch((error) => {
-            console.error("Error submitting form:", error);
-          });
-
-      };
+  const token = localStorage.getItem("user");
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    axios
+      .post(
+        "http://localhost:8080/post-questions",
+        {
+          title: data.title,
+          description: data.description,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + JSON.parse(token).token,
+          },
+        }
+      )
+      .then((response) => {
+        window.location.replace("/home");
+      })
+      .catch((error) => {
+        console.error("Error submitting form:", error);
+      });
+  };
   return (
     <div>
       <form
@@ -77,4 +75,4 @@ function Question() {
   );
 }
 
-export default Question
+export default Question;

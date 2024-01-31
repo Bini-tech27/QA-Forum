@@ -10,7 +10,7 @@ import { fetchQuestionData } from "../redux/questionAction";
 function Home({ questionData, fetchQuestionData, isLoading }) {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
-  const [token, setToken] = useState(localStorage.getItem("user"));
+  // const [token, setToken] = useState(localStorage.getItem("user"));
 
   useEffect(() => {
     // axios
@@ -45,7 +45,7 @@ function Home({ questionData, fetchQuestionData, isLoading }) {
               <div className="flex">
                 <div className="w-24">
                   <img className="w-16" src={profile} alt="" />
-                  <p>{item?.userId}</p>
+                  <p>{item?.user.username}</p>
                 </div>
                 <h1 className="mx-32 p-8 ">{item.title}</h1>
               </div>

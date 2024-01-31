@@ -21,11 +21,12 @@ export const fetchQuestionFailure = (error) => {
 
 export const fetchQuestionData = () => {
   return (dispatch) => {
-      const token = localStorage.getItem("user");
+      // const token = localStorage.getItem("user");
+      const token = localStorage.getItem("token");
     axios
       .get(`${IpAddress}/all-questions`,{
      headers: {
-       Authorization: "Bearer " + JSON.parse(token).token,
+       Authorization: "Bearer " + token,
      }},)
       .then((response) => {
         const questionData = response.data;

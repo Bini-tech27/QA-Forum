@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 
 function Nav() {
-  const token = localStorage.getItem("user");
+  const token = localStorage.getItem("token");
   const [isLoggedIn, setIsLoggedIn] = useState(token);
 
   const handleLogout = () => {

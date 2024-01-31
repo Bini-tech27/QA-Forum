@@ -15,13 +15,14 @@ function Answer() {
   const { id } = useParams();
   const [question, setQuestion] = useState({});
   const [answer, setAnswer] = useState({});
-  const [token, setToken] = useState(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+
 
   useEffect(() => {
     axios
       .get(`${IpAddress}/single-question/${id}`, {
         headers: {
-          Authorization: "Bearer " + JSON.parse(token).token,
+          Authorization: "Bearer " + token,
         },
       })
       .then((response) => {
@@ -36,7 +37,7 @@ function Answer() {
     axios
       .get(`${IpAddress}/answers/${id}`, {
         headers: {
-          Authorization: "Bearer " + JSON.parse(token).token,
+          Authorization: "Bearer " + token,
         },
       })
       .then((response) => {
@@ -56,7 +57,7 @@ function Answer() {
         },
         {
           headers: {
-            Authorization: "Bearer " + JSON.parse(token).token,
+            Authorization: "Bearer " + token,
           },
         }
       )
@@ -67,7 +68,7 @@ function Answer() {
         console.error("Error submitting form:", error);
       });
   };
-
+console.log("bbb",answer.answers)
   return (
     <div>
       <div>
@@ -83,7 +84,7 @@ function Answer() {
           <div className="flex">
             <div className="w-24 mx-32">
               <img className="w-16" src={profile} alt="" />
-              <p>{item?.userId}</p>
+              <p>{item?.user.username}</p>
             </div>
             <p className="mx-32 p-6">{item.answer}</p>
           </div>
@@ -97,7 +98,7 @@ function Answer() {
         className="max-w-md mx-auto my-8 bg-white p-20"
       >
         <h1 className="text-2xl font-bold mb-4 text-center text-gray-800">
-          Answer The Question Here
+          Answer The Question
         </h1>
 
         <label className="block mb-4">

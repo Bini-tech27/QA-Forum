@@ -1,37 +1,36 @@
-import axios from 'axios';
-import React from 'react'
-import { useForm } from 'react-hook-form';
-import { IpAddress } from '../IpAddress';
-
+import axios from "axios";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { IpAddress } from "../IpAddress";
 
 function Login() {
-     const {
-       register,
-       handleSubmit,
-       setValue,
-       formState: { errors },
-     } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
-     const onSubmit = (data) => {
-       axios
-         .post(`${IpAddress}/user/login`, {
-           email: data.email,
-           password: data.password,
-         })
-         .then((response) => {
-           const user = {
-             token: response.data.token,
-           };
-           console.log(response);
-           localStorage.setItem("user", JSON.stringify(user));
+  const onSubmit = (data) => {
+    axios
+      .post(`${IpAddress}/user/login`, {
+        email: data.email,
+        password: data.password,
+      })
+      .then((response) => {
+       const { token, role } = response.data; 
+       console.log(response);
 
-           window.location.replace("/home");
-         })
+       localStorage.setItem("token", token);
+       localStorage.setItem("role", role);
 
-         .catch((error) => {
-           console.error("Error submitting form:", error);
-         });
-     };
+       window.location.replace("/home");
+      })
+
+      .catch((error) => {
+        console.error("Error submitting form:", error);
+      });
+  };
   return (
     <div>
       <form
@@ -91,4 +90,4 @@ function Login() {
   );
 }
 
-export default Login
+export default Login;

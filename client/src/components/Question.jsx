@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { IpAddress } from "../IpAddress";
 
 function Question() {
-  const token = localStorage.getItem("user");
+  const token = localStorage.getItem("token");
   const {
     register,
     handleSubmit,
@@ -21,7 +21,7 @@ function Question() {
         },
         {
           headers: {
-            Authorization: "Bearer " + JSON.parse(token).token,
+            Authorization: "Bearer " + token,
           },
         }
       )

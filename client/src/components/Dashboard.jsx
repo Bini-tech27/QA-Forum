@@ -29,15 +29,18 @@ function Dashboard() {
       <h1>This is Dashboard</h1>
       <table className="min-w-full border border-collapse border-gray-300 mt-5">
         <thead>
-          <tr>
+          <tr className="bg-gray-200">
             <th className="border p-2">UserId</th>
             <th className="border p-2">User Name</th>
-            <th className="border p-2">Number of Question</th>
+            <th className="border p-2">Number of Questions</th>
           </tr>
         </thead>
         <tbody>
-          {question?.users?.map((item) => (
-            <tr>
+          {question?.users?.map((item, index) => (
+            <tr
+              key={index}
+              className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
+            >
               <td className="border p-2">{item.userId}</td>
               <td className="border p-2">{item.username}</td>
               <td className="border p-2">{item.numberOfQuestions}</td>

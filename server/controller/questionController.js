@@ -3,7 +3,11 @@ const prisma = new PrismaClient();
 
 const allQuestions = async (req, res) => {
   try {
-    const questions = await prisma.question.findMany();
+    const questions = await prisma.question.findMany({
+       include: {
+        user: true,
+      }},
+    );
 
     if (questions.length < 1) {
       return res.status(404).json({ msg: "No questions found" });

@@ -30,6 +30,7 @@ const register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const defaultRole = "user";
 
     const user = await prisma.user.create({
       data: {
@@ -37,6 +38,7 @@ const register = async (req, res) => {
         firstname: firstname,
         lastname: lastname,
         email: email,
+        role: defaultRole,
         password: hashedPassword,
       },
     });
@@ -73,15 +75,15 @@ const login = async (req, res) => {
     if (!passwordMatch) {
       return res.status(400).json({ msg: "Incorrect password" });
     }
-    
+
     const token = jwt.sign(
-      { userId: user.userId, username: user.username },
+      { userId: user.userId, username: user.username, role: user.role },
       "secret-key",
       {
         expiresIn: "15d",
       }
     );
-    res.status(200).json({ msg: "Login successful", token });
+    res.status(200).json({ msg: "Login successful", token, role: user.role });
   } catch (error) {
     console.error(error.message);
     res.status(500).send({ msg: "Something went wrong, try again later" });
@@ -89,7 +91,40 @@ const login = async (req, res) => {
 };
 
 const checkUser = (req, res) => {
-    res.json({ msg: "This is a protected route", user: req.user });
+  res.json({ msg: "This is a protected route", user: req.user });
 };
 
-module.exports = { register, login, checkUser };
+const getAllUsersWithQuestions = async (req, res) => {
+  try {
+
+    const allUsersWithQuestions = await prisma.user.findMany({
+      include: {
+        questions: true,
+      },
+    });
+
+    const allUsers = allUsersWithQuestions.map((item) => {
+      return {
+        userId: item.userId,
+        username: item.username,
+        numberOfQuestions: item.questions.length,
+      };
+    });
+
+    res.status(200).json({
+      msg: "All users with questions retrieved successfully",
+      users: allUsers,
+    });
+  } catch (error) {
+    console.error("Error getting all users with questions:", error);
+    res.status(500).send({ msg: "Something went wrong" });
+  }
+};
+
+module.exports = {
+  register,
+  login,
+  checkUser,
+  getAllUsersWithQuestions,
+};
+

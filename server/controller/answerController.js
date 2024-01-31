@@ -37,6 +37,7 @@ const postAnswers = async (req, res) => {
 };
 const getAnswers = async (req, res) => {
   const questionId = req.params.questionId;
+    const user = req.user;
 
   if (!questionId) {
     return res
@@ -48,6 +49,9 @@ const getAnswers = async (req, res) => {
     const answers = await prisma.answer.findMany({
       where: {
         questionId: parseInt(questionId),
+      },
+      include: {
+        user: true, 
       },
     });
 

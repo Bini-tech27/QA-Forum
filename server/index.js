@@ -17,7 +17,7 @@ app.use("/", questionRoutes);
 const answerRoutes = require("./routes/answerRoutes");
 app.use("/", answerRoutes);
 
-const PORT = 8080;
+const PORT = "https://questionhub-backend.onrender.com";
 app.listen(PORT, () => {
   console.log(`Server running at ${PORT}`);
 });

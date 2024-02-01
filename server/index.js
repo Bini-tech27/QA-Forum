@@ -4,8 +4,6 @@ const cors = require("cors");
 
 const prisma = new PrismaClient();
 const app = express();
-const PORT = 8080;
-const host = "0.0.0.0";
 
 app.use(cors());
 app.use(express.json());
@@ -19,6 +17,7 @@ app.use("/", questionRoutes);
 const answerRoutes = require("./routes/answerRoutes");
 app.use("/", answerRoutes);
 
-app.listen(PORT, host, () => {
-  console.log(`Server running at http://${host}:${PORT}`);
+const PORT = 8080;
+app.listen(PORT, () => {
+  console.log(`Server running at ${PORT}`);
 });

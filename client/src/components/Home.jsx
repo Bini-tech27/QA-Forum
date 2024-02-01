@@ -6,27 +6,10 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { fetchQuestionData } from "../redux/questionAction";
 
-
 function Home({ questionData, fetchQuestionData, isLoading }) {
   const { id } = useParams();
-  const [question, setQuestion] = useState({});
-  // const [token, setToken] = useState(localStorage.getItem("user"));
-
   useEffect(() => {
-    // axios
-    //   .get(`${IpAddress}/all-questions`, {
-    //     headers: {
-    //       Authorization: "Bearer " + JSON.parse(token).token,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     setQuestion(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching data:", error);
-    //   });
     fetchQuestionData();
-
   }, []);
 
   return (
@@ -70,4 +53,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home); 
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

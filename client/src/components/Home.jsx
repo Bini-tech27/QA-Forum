@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { IpAddress } from "../IpAddress";
 import profile from "../assets/profile.png";
-import axios from "axios";
 import { connect } from "react-redux";
 import { fetchQuestionData } from "../redux/questionAction";
 

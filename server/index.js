@@ -19,7 +19,7 @@ app.use("/", questionRoutes);
 const answerRoutes = require("./routes/answerRoutes");
 app.use("/", answerRoutes);
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5432;
 
 app.listen(PORT, () => {
   console.log(`Server running at ${PORT}`);

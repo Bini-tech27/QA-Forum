@@ -1,1 +1,1 @@
-export const IpAddress = `http://0.0.0.0:8080`;
+export const IpAddress = `https://questionhub-backend.onrender.com`;
